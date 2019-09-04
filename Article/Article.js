@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Is Bird Really the Word???',
+    date: `Sometime later than year 3000 AD after 'The Event'`,
+    firstParagraph: 'You',
+    secondParagraph: 'BETCHA',
+    thirdParagraph: 'Sonny'
   }
 ];
 
@@ -110,5 +117,53 @@ const data = [
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+const articles = document.querySelector('.articles')
+
+function createArticle(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const articleParagraph1 = document.createElement('p');
+  const articleParagraph2 = document.createElement('p');
+  const articleParagraph3 = document.createElement('p');
+  const articleButtonExpand = document.createElement('span');
+  const articleButton = document.createElement('button')
+
+  //element structure
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(articleParagraph1);
+  article.appendChild(articleParagraph2);
+  article.appendChild(articleParagraph3);
+  article.appendChild(articleButtonExpand);
+  articleButtonExpand.appendChild(articleButton);
+
+  //add classes
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  articleButton.classList.add('expandButton');
+
+  //set content
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleParagraph1.textContent = firstParagraph;
+  articleParagraph2.textContent = secondParagraph;
+  articleParagraph3.textContent = thirdParagraph;
+  articleButton.textContent = 'Read about it';
+
+  //eventListener
+
+  articleButtonExpand.addEventListener('click', (e) => {
+    console.log('button clicked');
+    article.classList.toggle('article-open');
+  });
+
+  return article;
+
+}
+
+data.map(data => {
+  articles.appendChild(createArticle(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+});
