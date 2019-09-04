@@ -111,6 +111,8 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+const articles = document.querySelector('.articles')
+
 function createArticle(title, date, firstParagraph, secondParagraph, thirdParagraph) {
   const article = document.createElement('div');
   const articleTitle = document.createElement('h2');
@@ -118,7 +120,8 @@ function createArticle(title, date, firstParagraph, secondParagraph, thirdParagr
   const articleParagraph1 = document.createElement('p');
   const articleParagraph2 = document.createElement('p');
   const articleParagraph3 = document.createElement('p');
-  const articleButton = document.createElement('span');
+  const articleButtonExpand = document.createElement('span');
+  const articleButton = document.createElement('button')
 
   //element structure
   article.appendChild(articleTitle);
@@ -126,10 +129,34 @@ function createArticle(title, date, firstParagraph, secondParagraph, thirdParagr
   article.appendChild(articleParagraph1);
   article.appendChild(articleParagraph2);
   article.appendChild(articleParagraph3);
-  article.appendChild(articleButton);
+  article.appendChild(articleButtonExpand);
+  articleButtonExpand.appendChild(articleButton);
 
   //add classes
   article.classList.add('article');
   articleDate.classList.add('date');
   articleButton.classList.add('expandButton');
+
+  //set content
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleParagraph1.textContent = firstParagraph;
+  articleParagraph2.textContent = secondParagraph;
+  articleParagraph3.textContent = thirdParagraph;
+  articleButton.textContent = 'Read about it';
+
+  //eventListener
+
+  articleButtonExpand.addEventListener('click', (e) => {
+    console.log('button clicked');
+    article.classList.toggle('article-open');
+  });
+
+  return article;
+
 }
+
+data.map(data => {
+  articles.appendChild(createArticle(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+});
